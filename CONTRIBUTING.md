@@ -10,12 +10,18 @@ You'll need macOS 15+ and Xcode with Swift 6. Clone the repo and run:
 make build
 ```
 
-That's it. Dependencies are managed through SPM and resolve automatically.
+That's it. Dependencies are managed through SPM and resolve automatically. The default debug build is unsigned so contributors can build the app without a local Apple Developer certificate or the maintainer's development team configured in Xcode.
 
 To build and launch in one step:
 
 ```bash
 make dev
+```
+
+If you need to test a signed debug build locally, pass your own Apple development team:
+
+```bash
+make build DEBUG_CODE_SIGNING_ALLOWED=YES DEBUG_DEVELOPMENT_TEAM=YOURTEAMID
 ```
 
 ## Making changes
