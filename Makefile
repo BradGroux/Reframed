@@ -6,13 +6,16 @@ BUILD_DIR = .build
 VERSION = $(shell grep MARKETING_VERSION Config.xcconfig | cut -d'=' -f2 | tr -d ' ')
 RELEASE_DIR = $(BUILD_DIR)/Build/Products/Release
 DEBUG_DIR = $(BUILD_DIR)/Build/Products/Debug
+DEBUG_CODE_SIGNING_ALLOWED ?= NO
+DEBUG_DEVELOPMENT_TEAM ?=
+DEBUG_SIGNING_OVERRIDES = CODE_SIGNING_ALLOWED=$(DEBUG_CODE_SIGNING_ALLOWED) DEVELOPMENT_TEAM=$(DEBUG_DEVELOPMENT_TEAM)
 
 .PHONY: build release run dev dmg dmg-release format clean help install uninstall changelog tag appcast publish
 
 all: help
 
 build:
-	@xcodebuild -project Reframed.xcodeproj -scheme $(SCHEME) -configuration Debug build -quiet -derivedDataPath $(BUILD_DIR) -destination '$(DESTINATION)'
+	@xcodebuild -project Reframed.xcodeproj -scheme $(SCHEME) -configuration Debug build -quiet -derivedDataPath $(BUILD_DIR) -destination '$(DESTINATION)' $(DEBUG_SIGNING_OVERRIDES)
 
 release:
 	@xcodebuild -project Reframed.xcodeproj -scheme $(SCHEME) -configuration Release build -quiet -derivedDataPath $(BUILD_DIR) -destination 'generic/platform=macOS' ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO
