@@ -51,14 +51,16 @@ extension PropertiesPanel {
     VStack(alignment: .leading, spacing: Layout.itemSpacing) {
       SectionHeader(icon: "aspectratio", title: "Aspect Ratio")
 
-      SegmentPicker(
-        items: CameraAspect.allCases,
-        label: { $0.label },
-        selection: $editorState.cameraAspect
-      )
-      .onChange(of: editorState.cameraAspect) { _, _ in
-        editorState.clampCameraPosition()
+      ForEach(CameraAspect.pickerRows, id: \.self) { row in
+        SegmentPicker(
+          items: row,
+          label: { $0.label },
+          selection: $editorState.cameraAspect
+        )
       }
+    }
+    .onChange(of: editorState.cameraAspect) { _, _ in
+      editorState.clampCameraPosition()
     }
     .disabled(!editorState.webcamEnabled)
     .opacity(editorState.webcamEnabled ? 1 : 0.5)
@@ -82,8 +84,10 @@ extension PropertiesPanel {
         label: "Radius",
         value: $editorState.cameraCornerRadius,
         range: 0...50,
-        formattedValue: "\(Int(editorState.cameraCornerRadius))%"
+        formattedValue: editorState.cameraAspect.isCircle ? "Circle" : "\(Int(editorState.cameraCornerRadius))%"
       )
+      .disabled(editorState.cameraAspect.isCircle)
+      .opacity(editorState.cameraAspect.isCircle ? 0.5 : 1)
 
       SliderRow(
         label: "Shadow",
