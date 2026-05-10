@@ -150,7 +150,7 @@ struct CameraRegionEditPopover: View {
         }
       }
 
-      SectionHeader(icon: "aspectratio", title: "Aspect Ratio")
+      SectionHeader(icon: "circle.square", title: "Camera Shape")
 
       ForEach(CameraAspect.pickerRows, id: \.self) { row in
         SegmentPicker(
