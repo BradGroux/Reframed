@@ -44,8 +44,9 @@ enum CameraAspect: String, Codable, Sendable, CaseIterable, Identifiable {
   var id: String { rawValue }
 
   static let pickerRows: [[CameraAspect]] = [
-    [.original, .ratio16x9, .ratio1x1, .ratio4x3, .ratio9x16],
-    [.ratio3x2, .ratio2x3, .circle],
+    [.original, .circle],
+    [.ratio16x9, .ratio1x1, .ratio4x3],
+    [.ratio3x2, .ratio2x3, .ratio9x16],
   ]
 
   var label: String {

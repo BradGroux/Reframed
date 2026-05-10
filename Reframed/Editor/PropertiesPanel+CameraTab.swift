@@ -47,9 +47,9 @@ extension PropertiesPanel {
     .opacity(editorState.webcamEnabled ? 1 : 0.5)
   }
 
-  var cameraAspectRatioSection: some View {
+  var cameraShapeSection: some View {
     VStack(alignment: .leading, spacing: Layout.itemSpacing) {
-      SectionHeader(icon: "aspectratio", title: "Aspect Ratio")
+      SectionHeader(icon: "circle.square", title: "Camera Shape")
 
       ForEach(CameraAspect.pickerRows, id: \.self) { row in
         SegmentPicker(
